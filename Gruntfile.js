@@ -118,6 +118,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-conventional-changelog');
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-git');
 
   // Default task
   grunt.registerTask('default', ['build']);
