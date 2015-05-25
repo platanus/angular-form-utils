@@ -1,3 +1,17 @@
+<a name="0.1.3"></a>
+### 0.1.3 (2015-05-25)
+
+
+#### Bug Fixes
+
+* **directives.input_for:** fixes setter not working for undefined values ([d1cc4439](http://github.com/platanus/angular-form-utils/commit/d1cc44393da074418912736318573bed45fe492a))
+
+
+#### Features
+
+* **directives:** adds range input parsing to number ([5930d1c2](http://github.com/platanus/angular-form-utils/commit/5930d1c2d69372216df8954df43b1bb3089c403b))
+
+
 <a name="0.1.2"></a>
 ### 0.1.2 (2015-05-25)
 
