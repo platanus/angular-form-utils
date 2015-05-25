@@ -1,6 +1,6 @@
 /**
  * Form state handling made easy
- * @version v0.1.1 - 2015-05-23
+ * @version v0.1.2 - 2015-05-25
  * @link https://github.com/platanus/angular-form-utils
  * @author Ignacio Baixas <ignacio@platan.us>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -22,20 +22,20 @@ angular.module('platanus.formutils')
         });
       }],
       template:
-        '<div class="control-group" input-aware ng-class="{ \'error\': !!error }">\
-          <label class="control-label" for="{{for}}"></label>\
-          <div class="controls">\
-            <div style="display: inline-block" ng-transclude></div>\
-            <span class="help-inline"></span>\
-          </div>\
+        '<div class="form-group" input-aware>\
+          <label for="{{for}}"></label>\
+          <div class="control-block" ng-transclude></div>\
+          <div class="help-block"></div>\
         </div>',
-      replace: true,
+      // replace: true, replacing is being deprecated in future angular releases.
       transclude: true,
       scope: { },
       link: function(_scope, _element, _attrs) {
 
-        var labelBlock = _element.find('label.control-label'),
-            helpBlock = _element.find('.controls .help-inline');
+        _element = _element.contents(); // no replacing!
+
+        var labelBlock = angular.element(_element.children()[0]),
+            helpBlock = angular.element(_element.children()[2]);
 
         function renderLabel(_html) {
           labelBlock.html(_html);
@@ -43,7 +43,7 @@ angular.module('platanus.formutils')
         }
 
         function renderHelp(_html, _class) {
-          helpBlock.attr('class', 'help-inline' + (_class ?  (' ' + _class) : ''));
+          helpBlock.attr('class', 'help-block' + (_class ?  (' ' + _class) : ''));
           helpBlock.html(_html);
           $compile(helpBlock.contents())(_scope.$parent);
         }
@@ -54,17 +54,20 @@ angular.module('platanus.formutils')
 
         function updateHelp() {
           if(withErrors()) {
-            renderHelp(_scope.$input.errors[0].tag, 'ks-error'); // just use first error for now
+            _element.addClass('form-group-error');
+            renderHelp(_scope.$input.errors[0].tag); // just use first error for now
           } else {
+            _element.removeClass('form-group-error');
             renderHelp(_scope.help || '');
           }
         }
 
         _scope.$watch('label', renderLabel);
         _scope.$watch('help', updateHelp);
-
-        // Handle errors through input-aware
-        _scope.$watch('$input.errors', updateHelp);
+        _scope.$watch(function() {
+          // Handle errors through input-aware
+          return withErrors() ? _scope.$input.errors[0].tag : '';
+        }, updateHelp);
 
         // The following observers are needed to allow controller to override values.
 
@@ -271,7 +274,8 @@ angular.module('platanus.formutils')
       terminal: true,
       require: '?^formFor',
       compile: function(_element, _attrs) {
-        _element.attr('name', _attrs.inputFor || _attrs.name);
+
+        if(!_attrs.name) _element.attr('name', _attrs.inputFor); // force name attribute
         _element.attr('ng-model','modelAdaptor');
         _element.attr('ng-model-options','{ getterSetter: true }');
         _element.removeAttr('input-for');
@@ -288,9 +292,9 @@ angular.module('platanus.formutils')
 
             _scope.modelAdaptor = function(_value) {
               if(typeof _value === 'undefined') {
-                return model()[_attrs.inputFor || _attrs.name];
+                return model()[_attrs.inputFor];
               } else {
-                model()[_attrs.inputFor || _attrs.name] = _value;
+                model()[_attrs.inputFor] = _value;
               }
             };
 
