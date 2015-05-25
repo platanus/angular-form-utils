@@ -9,13 +9,13 @@ describe('input-for attribute', function() {
 
   beforeEach(module('platanus.formutils'));
 
-  var element, scope, inputs, Utils;
+  var element, scope, form, inputs, Utils;
 
   beforeEach(inject(function(FormUtils, $rootScope, $compile) {
     Utils = FormUtils;
 
     element = angular.element(
-      '<form form-for="inputs" input-aware>\
+      '<form form-for="inputs" name="form" input-aware>\
         <input type="text" input-for="text1" required=""/>\
       </form>'
     );
@@ -26,7 +26,9 @@ describe('input-for attribute', function() {
     inputs = scope.inputs = {
       text1: ''
     };
+
     scope.$digest();
+    form = scope.form;
   }));
 
   it('should use name attribute to map to the form-for model property', function() {
@@ -36,6 +38,10 @@ describe('input-for attribute', function() {
 
   it('should correctly interface with input-aware', function() {
     expect(scope.$input.errors.length).toEqual(1);
+  });
+
+  it('should properly assign model in form model', function() {
+    expect(form.text1).toBeDefined();
   });
 
 });

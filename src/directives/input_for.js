@@ -9,7 +9,8 @@ angular.module('platanus.formutils')
       terminal: true,
       require: '?^formFor',
       compile: function(_element, _attrs) {
-        _element.attr('name', _attrs.inputFor || _attrs.name);
+
+        if(!_attrs.name) _element.attr('name', _attrs.inputFor); // force name attribute
         _element.attr('ng-model','modelAdaptor');
         _element.attr('ng-model-options','{ getterSetter: true }');
         _element.removeAttr('input-for');
@@ -26,9 +27,9 @@ angular.module('platanus.formutils')
 
             _scope.modelAdaptor = function(_value) {
               if(typeof _value === 'undefined') {
-                return model()[_attrs.inputFor || _attrs.name];
+                return model()[_attrs.inputFor];
               } else {
-                model()[_attrs.inputFor || _attrs.name] = _value;
+                model()[_attrs.inputFor] = _value;
               }
             };
 
