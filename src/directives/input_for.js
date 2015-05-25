@@ -26,7 +26,7 @@ angular.module('platanus.formutils')
             }
 
             _scope.modelAdaptor = function(_value) {
-              if(typeof _value === 'undefined') {
+              if(arguments.length === 0) {
                 return model()[_attrs.inputFor];
               } else {
                 model()[_attrs.inputFor] = _value;

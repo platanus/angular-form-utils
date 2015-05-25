@@ -24,7 +24,7 @@ describe('input-for attribute', function() {
     $compile(element)(scope);
 
     inputs = scope.inputs = {
-      text1: ''
+      text1: 'foo'
     };
 
     scope.$digest();
@@ -34,9 +34,16 @@ describe('input-for attribute', function() {
   it('should use name attribute to map to the form-for model property', function() {
     setInputValue(element.find('input'), 'foo');
     expect(inputs.text1).toEqual('foo');
+    setInputValue(element.find('input'), '');
+  });
+
+  it('should properly handle undefined values when handling invalid input', function() {
+    setInputValue(element.find('input'), '');
+    expect(inputs.text1).toEqual(undefined);
   });
 
   it('should correctly interface with input-aware', function() {
+    setInputValue(element.find('input'), '');
     expect(scope.$input.errors.length).toEqual(1);
   });
 
