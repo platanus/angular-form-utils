@@ -36,12 +36,12 @@ describe('bs-control-group element', function() {
     form = scope.form;
   }));
 
-  it('should add class form-group-error if there are validation errors and input is dirty', function() {
-    expect(element.hasClass('form-group-error')).toBeFalsy(); // not dirty and invalid
+  it('should add class has-error if there are validation errors and input is dirty', function() {
+    expect(element.hasClass('has-error')).toBeFalsy(); // not dirty and invalid
     setInputValue(element.find('input'), 'hello');
-    expect(element.hasClass('form-group-error')).toBeFalsy(); // dirty but valid
+    expect(element.hasClass('has-error')).toBeFalsy(); // dirty but valid
     setInputValue(element.find('input'), '');
-    expect(element.hasClass('form-group-error')).toBeTruthy(); // dirty and invalid
+    expect(element.hasClass('has-error')).toBeTruthy(); // dirty and invalid
   });
 
   it('should properly set the label value', function() {

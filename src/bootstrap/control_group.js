@@ -45,10 +45,10 @@ angular.module('platanus.formutils')
 
         function updateHelp() {
           if(withErrors()) {
-            _element.addClass('form-group-error');
+            _element.addClass('has-error');
             renderHelp(_scope.$input.errors[0].tag); // just use first error for now
           } else {
-            _element.removeClass('form-group-error');
+            _element.removeClass('has-error');
             renderHelp(_scope.help || '');
           }
         }
