@@ -1,3 +1,12 @@
+<a name="0.1.5"></a>
+### 0.1.5 (2015-05-26)
+
+
+#### Bug Fixes
+
+* **boostrap.control_group:** makes directive use the has-error bootstrap class ([38b163c1](http://github.com/platanus/angular-form-utils/commit/38b163c1c9d00029439d5e59e86197f05218e68f))
+
+
 <a name="0.1.4"></a>
 ### 0.1.4 (2015-05-25)
 
