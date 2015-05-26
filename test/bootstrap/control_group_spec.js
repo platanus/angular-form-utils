@@ -51,7 +51,9 @@ describe('bs-control-group element', function() {
   });
 
   it('should properly set the help block value', function() {
-    var helpBlock = angular.element(element.children()[2]);
+    var contentBlock = angular.element(element.children()[1]),
+        helpBlock = angular.element(contentBlock.children()[1]);
+
     expect(helpBlock[0].tagName).toEqual('DIV');
     expect(helpBlock.hasClass('help-block')).toBeTruthy();
     expect(helpBlock.text()).toEqual('Some help');
