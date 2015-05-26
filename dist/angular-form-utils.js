@@ -1,6 +1,6 @@
 /**
  * Form state handling made easy
- * @version v0.1.3 - 2015-05-25
+ * @version v0.1.4 - 2015-05-25
  * @link https://github.com/platanus/angular-form-utils
  * @author Ignacio Baixas <ignacio@platan.us>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -23,9 +23,11 @@ angular.module('platanus.formutils')
       }],
       template:
         '<div class="form-group" input-aware>\
-          <label for="{{for}}"></label>\
-          <div class="control-block" ng-transclude></div>\
-          <div class="help-block"></div>\
+          <label for="{{for}}" class="control-label"></label>\
+          <div class="control-content">\
+            <div ng-transclude></div>\
+            <div class="help-block"></div>\
+          </div>\
         </div>',
       // replace: true, replacing is being deprecated in future angular releases.
       transclude: true,
@@ -35,7 +37,8 @@ angular.module('platanus.formutils')
         _element = _element.contents(); // no replacing!
 
         var labelBlock = angular.element(_element.children()[0]),
-            helpBlock = angular.element(_element.children()[2]);
+            contentBlock = angular.element(_element.children()[1]),
+            helpBlock = angular.element(contentBlock.children()[1]);
 
         function renderLabel(_html) {
           labelBlock.html(_html);

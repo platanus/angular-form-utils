@@ -1,3 +1,12 @@
+<a name="0.1.4"></a>
+### 0.1.4 (2015-05-25)
+
+
+#### Bug Fixes
+
+* **bootstrap.control_group:** makes help block nested inside content ([2b395700](http://github.com/platanus/angular-form-utils/commit/2b39570093d69901ea5bf38d9d3d0843eadc86e8))
+
+
 <a name="0.1.3"></a>
 ### 0.1.3 (2015-05-25)
 
